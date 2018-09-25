@@ -14,5 +14,5 @@ server.retrieve({
     'type'      : "fc",
     'class'     : "mc",
     # "format"    : "netcdf",
-    'target'    : "data.nc"
+    'target'    : "python-data/data.nc"
 })
