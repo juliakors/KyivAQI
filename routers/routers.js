@@ -13,4 +13,8 @@ module.exports = (app) => {
 	app.get('/script.js', (req, res) => {
 		res.sendFile(path.resolve(__dirname + '/../dist/main.js'));
 	});
+
+	app.get('/socket.io/socket.io.js', (req, res) => {
+		res.sendFile(path.resolve(__dirname + '/../node_modules/socket.io/socket.io.js'));
+	});
 }

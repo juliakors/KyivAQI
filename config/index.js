@@ -3,6 +3,7 @@ module.exports = {
     uri: "mongodb://localhost/kiev-air",
     opts: {
       auto_reconnect: true,
-      poolSize: 40
+      poolSize: 40,
+      useNewUrlParser: true
     }
   };

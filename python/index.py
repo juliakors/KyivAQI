@@ -13,6 +13,5 @@ server.retrieve({
     'date'      : "2018-09-01/to/2018-09-11",
     'type'      : "fc",
     'class'     : "mc",
-    # "format"    : "netcdf",
     'target'    : "python-data/data.nc"
 })
