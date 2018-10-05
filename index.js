@@ -1,5 +1,5 @@
 const ee = require('@google/earthengine');
-const privateKey = require('./privatekey.json');
+const privateKey = require('./kiev-air-088230e7eb27.json');
 
 const express = require('express');
 const app = express();
