@@ -19,11 +19,13 @@
   },
   "homepage": "https://github.com/korspace/kiev-air-js#readme",
   "dependencies": {
+    "@chenfengyuan/datepicker": "^1.0.0",
     "@google/earthengine": "^0.1.150",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "googleapis": "^16.1.0",
     "handlebars": "^4.0.12",
+    "jquery-datepicker": "^1.12.3",
     "mongoose": "^5.2.16",
     "path": "^0.12.7",
     "requirejs": "^2.3.6",

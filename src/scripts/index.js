@@ -17,3 +17,5 @@ console.log('It works');
 // image.getMap({min: 0, max: 1000}, function(map) {
 //   //console.log(map);
 // });
+
+$('input[name="dates"]').daterangepicker();

@@ -18,6 +18,8 @@ require('./sockets/sockets')(io);
 var runAnalysis = function() {
   ee.initialize(null, null, function() {
     console.log('It works!');
+    var img = ee.Image(1);
+    console.log(img);
   }, function(e) {
     console.error('Initialization error: ' + e);
   });
