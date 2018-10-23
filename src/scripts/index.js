@@ -19,3 +19,4 @@ console.log('It works');
 // });
 
 $('input[name="dates"]').daterangepicker();
+

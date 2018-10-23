@@ -11,11 +11,11 @@
 <body class="no-overflow">
     <div class="login-form">
         <h2>Log in <div></div></h2>
-        <input type="email">
-        <input type="password">
+        <input type="email" name="username" id="userName">
+        <input type="password" name="password" id="userPassword">
         <div class="flexbox">
-                <a href="">Registration</a>
-                <button>Log in</button>
+                <a href="register">Registration</a>
+                <button id="userLogin">Log in</button>
         </div>
     </div>
     
@@ -31,4 +31,39 @@
             </svg>
       </div>
 </body>
+<script>
+    document.getElementById('userLogin').addEventListener('click', () => {
+        let userData = {
+            username: document.getElementById('userName').value,
+            password: document.getElementById('userPassword').value
+        }
+        console.log(userData);
+        ajaxRequest({
+            method: 'POST',
+            url: '/login',
+            data: userData
+        });
+        // window.location = '/login';
+    })
+    
+    function ajaxRequest(options) {
+        var url = options.url || '/';
+        var method = options.method || 'GET';
+        var callback = options.callback || function() {};
+        var data = options.data || {};
+        var async = options.asynchronous || true;
+        var xmlHttp = new XMLHttpRequest();
+    
+        xmlHttp.open(method, url, async);
+        xmlHttp.setRequestHeader('Content-Type', 'application/json');
+        xmlHttp.send(JSON.stringify(data));
+    
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.status == 200 && xmlHttp.readyState === 4) {
+                callback(xmlHttp.responseText);
+            }
+        };
+    };
+    
+    </script>
 </html>
