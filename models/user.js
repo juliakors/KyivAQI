@@ -30,7 +30,7 @@ module.exports.createUser = (newUser, callback) => {
 };
 
 module.exports.getUserByUsername = (username, callback) => {
-    var query = {username: username};
+    var query = {email: username};
     User.findOne(query, callback);
 }
 
@@ -40,6 +40,7 @@ module.exports.getUserById = (id, callback) => {
 
 module.exports.comparePassword = (candidatePassword, hash, callback) => {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+        console.log(isMatch);
         if (err) throw err;
         callback(null, isMatch);
     })

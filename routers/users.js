@@ -47,14 +47,22 @@ router.post('/register', (req, res) => {
     }
 });
 
+
+
+
+
 passport.use(new localStrategy(
     function(username, password, done) {
+        console.log('1');
         User.getUserByUsername(username, (err, user) => {
+            console.log(user);
             if (err) throw err;
             if (!user) {
+                console.log('3');
                 return done(null, false, {message: 'Unknown user'});
             }
             User.comparePassword(password, user.password, (err, isMatch) => {
+                console.log('4');
                 if (err) throw err;
                 if (isMatch) {
                     console.log('!!!!!!!!!!!!');
@@ -76,10 +84,10 @@ passport.deserializeUser((id, done) => {
     User.getUserById(id, (err, user) => {
         done(err, user);
     })
-})
+});
 
 router.post('/login',
-    
+    passport.authenticate('local'),
     (req, res) => {
         console.log(11);
         // passport.authenticate('local', {
