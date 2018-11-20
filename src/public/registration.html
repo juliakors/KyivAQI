@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 </head>
 <body>
     <div class="registration-form">
@@ -14,8 +15,8 @@
         <input type="password" name="password" id="userPassword">
         <input type="password">
         <div class="flexbox">
-                <a href="login">Log in</a>
-                <button id="userRegister">Register account</button>
+            <a href="login">Log in</a>
+            <button id="userRegister">Register account</button>
         </div>
     </div>
     
@@ -31,40 +32,19 @@
             </svg>
       </div>
 </body>
+
+<script src="/socket.io/socket.io.js"></script>
 <script>
-document.getElementById('userRegister').addEventListener('click', () => {
-    let userData = {
-        name: document.getElementById('userName').value,
-        email: document.getElementById('userEmail').value,
-        password: document.getElementById('userPassword').value
-    }
-    console.log(userData);
-    ajaxRequest({
-		method: 'POST',
-		url: '/register',
-		data: userData
+    const socket = io.connect();
+    document.getElementById('userRegister').addEventListener('click', () => {
+        let user = {
+            name: document.getElementById('userName').value,
+            email: document.getElementById('userEmail').value,
+            password: document.getElementById('userPassword').value
+        }
+        socket.emit('register-user', user, () => {
+            window.location = '/login';
+        });
     });
-    window.location = '/login';
-})
-
-function ajaxRequest(options) {
-	var url = options.url || '/';
-	var method = options.method || 'GET';
-	var callback = options.callback || function() {};
-	var data = options.data || {};
-	var async = options.asynchronous || true;
-	var xmlHttp = new XMLHttpRequest();
-
-	xmlHttp.open(method, url, async);
-	xmlHttp.setRequestHeader('Content-Type', 'application/json');
-	xmlHttp.send(JSON.stringify(data));
-
-	xmlHttp.onreadystatechange = function() {
-		if (xmlHttp.status == 200 && xmlHttp.readyState === 4) {
-			callback(xmlHttp.responseText);
-		}
-	};
-};
-
 </script>
 </html>

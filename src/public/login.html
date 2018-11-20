@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login | Registration</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/style-"> -->
 </head>
 <body class="no-overflow">
     <div class="login-form">
@@ -31,39 +30,8 @@
             </svg>
       </div>
 </body>
-<script>
-    document.getElementById('userLogin').addEventListener('click', () => {
-        let userData = {
-            username: document.getElementById('userName').value,
-            password: document.getElementById('userPassword').value
-        }
-        console.log(userData);
-        ajaxRequest({
-            method: 'POST',
-            url: '/login',
-            data: userData
-        });
-        // window.location = '/login';
-    })
-    
-    function ajaxRequest(options) {
-        var url = options.url || '/';
-        var method = options.method || 'GET';
-        var callback = options.callback || function() {};
-        var data = options.data || {};
-        var async = options.asynchronous || true;
-        var xmlHttp = new XMLHttpRequest();
-    
-        xmlHttp.open(method, url, async);
-        xmlHttp.setRequestHeader('Content-Type', 'application/json');
-        xmlHttp.send(JSON.stringify(data));
-    
-        xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.status == 200 && xmlHttp.readyState === 4) {
-                callback(xmlHttp.responseText);
-            }
-        };
-    };
-    
-    </script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="globals.js"></script>
+<script src="script.js"></script>
 </html>

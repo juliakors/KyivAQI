@@ -133,8 +133,14 @@ header nav li {
     list-style: none;
 }
 
-header nav li.login-btn {
+header nav li.login-btn,
+header nav li.logout-btn {
     margin-left: 2rem;
+}
+
+header nav li.logout-btn button {
+    background-color: rgb(221, 227, 247);
+    color: #757575;
 }
 
 header nav li.login-btn button:after {
@@ -379,3 +385,6 @@ main {
       overflow: hidden;
   }
   
+  #logoutBtn {
+      display: none;
+  }

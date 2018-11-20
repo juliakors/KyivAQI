@@ -5,6 +5,7 @@ function ConnectionRepository() {}
 
 function connectUser(io, socket) {
 	connections.push(socket);
+	console.log('Connected: %s sockets', connections.length);
 }
 
 function disconnectUser(io, socket) {
