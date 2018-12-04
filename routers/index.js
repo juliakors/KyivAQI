@@ -1,9 +1,9 @@
 const path = require("path");
 
 module.exports = (app, io) => {
-	app.get('/', (req, res) => {
-		res.sendFile(path.resolve(__dirname + '/../src/public/index.html'));
-	});
+	// app.get('/', (req, res) => {
+	// 	res.sendFile(path.resolve(__dirname + '/../src/public/index.html'));
+	// });
 
 	app.get('/script.js', (req, res) => {
 		res.sendFile(path.resolve(__dirname + '/../dist/main.js'));

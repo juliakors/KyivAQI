@@ -19,6 +19,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
+const handlebars  = require('express-handlebars');
+
 mongoose.connect('mongodb://localhost/loginapp');
 const db = mongoose.connection;
 
@@ -43,9 +45,22 @@ app.get('/login.js', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/src/scripts/login.js'));
 });
 
-app.get('/globals.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/src/scripts/globals.js'));
-});
+app.engine('.hbs', handlebars({extname: '.hbs', cache: false}))
+  .set('view engine', '.hbs');
+app.use('/src/public', express.static('src/public'))
+
+app.get('/', (request, response) => {
+	console.log(ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_123032_20140515'));
+	const image = new ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_123032_20140515');
+	var map = image.getMap({min: 0, max: 1000});
+	
+    response.render('index', {mapid: map.mapid, token: map.token});
+
+  });
+
+// app.get('/globals.js', (req, res) => {
+//   res.sendFile(path.resolve(__dirname + '/src/scripts/globals.js'));
+// });
 
 // Express session
 app.use(session({
