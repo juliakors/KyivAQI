@@ -1,0 +1,54 @@
+{
+  "name": "kiev-air",
+  "version": "1.0.0",
+  "description": "Application for displaying the results of air quality assessment in Kiev with JS",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack src/scripts/index.js dist/bundle.js",
+    "pydata": "python3 '/home/korsunskaya/Desktop/kiev-air-js/python/index.py'",
+    "start": "concurrently \"python3 '/home/korsunskaya/Desktop/kiev-air-js/python/index.py'\" \"npm run build\" \"node index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/korspace/kiev-air-js.git"
+  },
+  "author": "IPT KPI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/korspace/kiev-air-js/issues"
+  },
+  "homepage": "https://github.com/korspace/kiev-air-js#readme",
+  "dependencies": {
+    "@chenfengyuan/datepicker": "^1.0.0",
+    "@google/earthengine": "^0.1.150",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.4.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.0",
+    "googleapis": "^16.1.0",
+    "handlebars": "^4.0.12",
+    "jquery-datepicker": "^1.12.3",
+    "mongodb": "^3.1.8",
+    "mongoose": "^5.2.16",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "requirejs": "^2.3.6",
+    "shp-write": "^0.3.2",
+    "socket.io": "^2.1.1",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "node-hot-loader": "^1.12.0",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  }
+}

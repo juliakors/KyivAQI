@@ -1,0 +1,390 @@
+@font-face {
+    font-family: "Roboto Regular";
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+@font-face {
+    font-family: "Roboto Bold";
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+@font-face {
+    font-family: "Roboto Light";
+    src: url("../fonts/Roboto-Light.ttf");
+}
+@font-face {
+    font-family: "Roboto Medium";
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+
+* {
+    font-family: Roboto Light;
+    box-sizing: border-box;
+    color: #373737;
+    font-size: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h2.checkall {
+    display: grid;
+    grid-template-columns: calc(100% - 1rem) 1rem;
+}
+
+h2 div, h1 div {
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(rgb(224, 106, 60), rgb(235, 78, 143));
+    margin: 0.4rem 0;
+}
+
+h1 div {
+    margin: 0.6rem auto;
+    height: 5px;
+    width: 100px;
+}
+
+button {
+    font-family: Roboto Medium;
+    border: none;
+    outline: none;
+    padding: 0.6rem 1rem;
+    border-radius: 3px;
+    background-color: #6480DF;
+    color: #fff;
+    cursor: pointer;
+    transition: .4s ease;
+}
+
+button.secondary-btn {
+    background-color: #DEE2FB;
+    color: #49429D;
+}
+
+button:hover {
+    box-shadow: 0 2px 3px rgb(209, 209, 209);
+    background-color: rgb(93, 119, 204);
+}
+
+button.secondary-btn:hover {
+    box-shadow: 0 2px 3px rgb(236, 235, 235);
+    background-color: rgb(201, 205, 233);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #eee;
+    color: #807e7e;
+    transition: .4s ease;
+}
+
+input[type="text"]:hover, input[type="text"]:focus,
+input[type="email"]:hover, input[type="email"]:focus,
+input[type="password"]:hover, input[type="password"]:focus {
+    border-color: #356ccb;
+    color: #373737;
+}
+
+a {
+    text-decoration: none;
+    color: #373737;
+    transition: .4s ease;
+}
+
+a:not(.logo):hover {
+    color: #C54055;
+}
+
+header {
+    min-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 5px 15px rgb(232, 235, 238);
+    padding: 1.5rem;
+    position: relative;
+    z-index: 100;
+}
+
+header .logo {
+    font-size: 2.2rem;
+    font-family: Roboto Medium;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header nav li {
+    list-style: none;
+}
+
+header nav li.login-btn,
+header nav li.logout-btn {
+    margin-left: 2rem;
+}
+
+header nav li.logout-btn button {
+    background-color: rgb(221, 227, 247);
+    color: #757575;
+}
+
+header nav li.login-btn button:after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f508';
+    margin-left: 0.5rem;
+}
+
+header nav li a {
+    text-decoration: none;
+    font-family: Roboto Regular;
+}
+
+main {
+    padding: 2rem 1.5rem;
+    padding-bottom: 0;
+    background-color: #EFF4F8;
+}
+
+.map-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.map-container>div {
+    background-color: #fff;
+    box-shadow: 0 2px 15px rgb(232, 235, 238);
+}
+
+.map-settings {
+    padding: 1.5rem;
+    max-width: 40%;
+    position: relative;
+}
+
+.map-settings>div {
+    margin-bottom: 2rem;
+}
+
+.fas {
+    color: #ccc;
+    cursor: pointer;
+    transition: .4s ease;
+}
+
+.clear-btn {
+    position: absolute;
+    bottom: 0.8rem;
+    right: 1.5rem;
+    color: #ccc;
+}
+
+.fas:hover {
+    color: #373737;
+}
+
+.map-settings .settings-elements {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#map {
+    width: 100%;
+}
+
+.container {
+    position: relative;
+    padding-left: 1.5rem;
+    margin: 0.4rem 0;
+    margin-right: 0.8rem;
+    cursor: pointer;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1rem;
+    width: 1rem;
+    background-color: #eee;
+  }
+
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  .container input:checked ~ .checkmark {
+    background-color: #356CCB;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .data-types-menu {
+      display: none;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background-color: #fff;
+      width: 100%;
+      margin: 0;
+      box-shadow: 0 2px 3px rgb(236, 235, 235);
+  }
+
+  .data-types-menu li {
+      list-style: none;
+      padding: 0.5rem;
+  }
+
+  .data-types-menu li:hover {
+    background-color: #eee;
+}
+
+  .export-data {
+      display: flex;
+      justify-content: flex-end;
+      margin: 1.5rem 0;
+      position: relative;
+      z-index: 20;
+  }
+
+  .export-data-btn {
+      width: 200px;
+      position: relative;
+      background-color: #356CCB;
+  }
+
+  .export-data-btn:hover .data-types-menu {
+      display: block;
+  }
+
+  .wave {
+    position: relative;
+    left: -1.5rem;
+    width: calc(100% + 3rem);
+    transform: rotate(180deg);
+    top: -100px;
+    z-index: 10;
+  }
+
+  .wave svg {
+      fill: #fff;
+  }
+
+  .wave.background {
+    transform: rotate(360deg);
+    top: 0;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .wave.background svg {
+      fill: #4C4CA0;
+      fill: url(#MyGradient);
+      height: 1200px;
+}
+
+  .plots {
+      background-color: #fff;
+      position: relative;
+      top: -102px;
+      padding: 1.5rem;
+  }
+
+  .plots button {
+      margin: 0 auto;
+      display: block;
+      width: 200px;
+  }
+
+  .plots button:after {
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      content: '\f012';
+      margin-left: 0.5rem;
+  }
+
+  .login-form, .registration-form {
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: 0 2px 6px rgba(99, 99, 99, 0.5);
+      padding: 1.5rem;
+      position: relative;
+      top: 100px;
+      background-color: #fff;
+  }
+  .login-form input,
+  .registration-form input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .login-form button,
+  .registration-form button{
+      display: block;
+      margin: 0.5rem 0;
+  }
+
+  .flexbox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .no-overflow {
+      overflow: hidden;
+  }
+  
+  #logoutBtn {
+      display: none;
+  }
