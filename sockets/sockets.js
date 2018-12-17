@@ -1,13 +1,20 @@
 // Services
 const connectionService = require('../services/connection');
 const userService = require("../services/user");
+const featureService = require("../services/features");
 const User = require('../models/user');
 
-module.exports = function (io) {
+module.exports = function (io, mongo) {
 	io.on('connection', (socket) => {
 
 		// Connect
 		connectionService.connect(io, socket);
+
+		socket.on('get-aqi', (date) => {
+			featureService.getFeatures(date, (err, data) => {
+				socket.emit('aqi', data);
+			});
+		});
 	
 		// Disconnect
 		socket.on('disconnect', () => {

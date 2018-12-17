@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+		<link rel="stylesheet" href="css/leaflet-measure.css">
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+		<link  href="/views/dist/datepicker.css" rel="stylesheet">
+		<script src="/views/dist/datepicker.js"></script>
+        <style>
+        #map {
+            /* width: 1244px; */
+            height: 1312px;
+		}
+		body {
+			position: relative;
+			margin: 0;
+		}
+		.legend-color {
+			width: 15px;
+			height: 15px;
+			display: inline-block;
+			position: relative;
+			top: 3px;
+		}
+		.datepicker {
+			position: absolute;
+			z-index: 10000000000000;
+			margin: 10px;
+			border: 3px solid rgba(255, 255, 255, 0.4);
+			border-radius: 2px;
+			background-color: rgba(255, 255, 255, 0.4);
+		}
+		#datepicker {
+			width: 70px;
+			padding: 5px;
+			border: none;
+			outline: none;
+			border-radius: 3px;
+		}
+		#datepicker-btn {
+			padding: 5px 10px;
+			border: none;
+			outline: none;
+			border-radius: 3px;
+			background-color: #6480DF;
+			color: #fff;
+			cursor: pointer;
+			transition: .4s ease;
+		}
+		.leaflet-touch .leaflet-bar:first-child {
+			margin-top: 50px;
+		}
+        </style>
+        <title></title>
+	</head>
+	
+    <body>
+			<div class="datepicker">
+					<input data-toggle="datepicker" id="datepicker" value="2018-11-02">
+					<button id="datepicker-btn">OK</button>
+			</div>
+			
+        <div id="map">
+			
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+		<!-- <script src="data/aqi_1.js"></script> -->
+		<script src="/socket.io/socket.io.js"></script>
+        <script>
+			const socket = io.connect();
+			$('[data-toggle="datepicker"]').datepicker({
+				format: 'yyyy-mm-dd'
+			});
+
+			let date = document.getElementById('datepicker').value;
+
+			socket.emit('get-aqi', date);
+
+			var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+			}).fitBounds([[40.84331599884105,29.46787229246369],[50.516107293273876,33.22329732123129]]);
+
+			document.getElementById('datepicker-btn').addEventListener('click', (evt) => {
+				let date = document.getElementById('datepicker').value;
+				socket.emit('get-aqi', date);
+			});
+
+			var hash = new L.Hash(map);
+			map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+			L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+			var measureControl = new L.Control.Measure({
+				position: 'topleft',
+				primaryLengthUnit: 'meters',
+				secondaryLengthUnit: 'kilometers',
+				primaryAreaUnit: 'sqmeters',
+				secondaryAreaUnit: 'hectares'
+			});
+			measureControl.addTo(map);
+			document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+			.innerHTML = '';
+			document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+			.className += ' fas fa-ruler';
+			var layer_GoogleRoad_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+				opacity: 1.0
+			});
+			layer_GoogleRoad_0.addTo(map);
+			map.addLayer(layer_GoogleRoad_0);
+			var layer_aqi_1;
+			var legend;
+
+			socket.on('aqi', (json_aqi_1) => {
+				if (layer_aqi_1)
+				layer_aqi_1.clearLayers();
+				if (legend) {
+					legend.remove();
+					// legend.removeFrom(map);
+					console.log(L.control.layers())
+				}
+				
+        		var bounds_group = new L.featureGroup([]);
+				function setBounds() {
+				}
+		
+		function aqiFilter(feature) {
+			if (feature.properties.aqi === 3.0) return true
+		}
+
+        map.createPane('pane_aqi_1');
+        map.getPane('pane_aqi_1').style.zIndex = 401;
+		map.getPane('pane_aqi_1').style['mix-blend-mode'] = 'normal';
+
+		
+
+		console.log(json_aqi_1);
+        layer_aqi_1 = new L.geoJson(json_aqi_1, {
+            attribution: '',
+            pane: 'pane_aqi_1',
+            onEachFeature: pop_aqi_1,
+			style: style_aqi_1_0,
+			// filter: aqiFilter
+        });
+        bounds_group.addLayer(layer_aqi_1);
+		map.addLayer(layer_aqi_1);
+	
+		legend = L.control.layers({'Google Street': layer_GoogleRoad_0},{'AQI': layer_aqi_1});
+		legend.addTo(map);
+// 			var baseMaps = {};
+//        // L.control.layers(baseMaps,{'no2_1': layer_aqi_1,},{collapsed:false}).addTo(map);
+//         setBounds();
+
+// legend.onAdd = function (map) {
+
+// 	var div = L.DomUtil.create('div', 'info legend'),
+//     grades = [1, 2, 3, 4, 5],
+// 	labels = [];
+// 	div.innerHTML = '<b>AQI</b><br>';
+
+//     // loop through our density intervals and generate a label with a colored square for each interval
+//     for (var i = 0; i < grades.length; i++) {
+//         div.innerHTML +=
+//             '<i class="legend-color" style="background:' + getColor(grades[i]) + '"></i> ' + grades[i] + '<br>';
+// }
+
+// return div;
+// };
+
+// legend.addTo(map);
+        
+			});
+
+			
+
+function getColor(d) {
+    return d == 1 ? 'rgba(87,187,138,0.5)' :
+           d == 2  ? 'rgba(176,190,110,0.5)' :
+           d == 3  ? 'rgba(243,197,99,0.5)' :
+           d == 4  ? 'rgba(233,162,104,0.5)' : 'rgba(221,119,110,0.5)';
+}
+			function style_aqi_1_0(feature) {
+            switch(String(feature.properties['aqi'])) {
+                case '1':
+                    return {
+                pane: 'pane_aqi_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(87,187,138,0.5)',
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_aqi_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(176,190,110,0.5)',
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_aqi_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,197,99,0.5)',
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_aqi_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(233,162,104,0.5)',
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_aqi_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,119,110,0.5)',
+            }
+                    break;
+            }
+		}
+
+		function pop_aqi_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+							<th scope="row">pm_sum</th><td colspan="2">' + (feature.properties['pm_sum'] !== null ? Autolinker.link(String(feature.properties['pm_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">aqi</th>\
+                        <td>' + (feature.properties['aqi'] !== null ? Autolinker.link(String(feature.properties['aqi'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+       
+        </script>
+    </body>
+</html>

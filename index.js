@@ -27,7 +27,7 @@ const db = mongoose.connection;
 const staticPath = path.normalize(__dirname + "/src/public");
 
 // Connection
-require('./sockets/sockets')(io);
+require('./sockets/sockets')(io, mongo);
 
 //app.set('views', path.join(__dirname, 'views'));
 
@@ -45,9 +45,17 @@ app.get('/login.js', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/src/scripts/login.js'));
 });
 
+app.get('/qgis/index.html', (req, res) => {
+	res.sendFile(path.resolve(__dirname + '/views/qgis/index.html'));
+  });
+
+
+
 app.engine('.hbs', handlebars({extname: '.hbs', cache: false}))
   .set('view engine', '.hbs');
-app.use('/src/public', express.static('src/public'))
+app.use('/src/public', express.static('src/public'));
+app.use('/views/qgis', express.static(__dirname + '/views/qgis'));
+app.use('/views/dist', express.static(__dirname + '/views/dist'));
 
 app.get('/', (request, response) => {
 	console.log(ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_123032_20140515'));

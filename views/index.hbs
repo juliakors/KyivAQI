@@ -31,7 +31,7 @@
 
     <main>
       <div class="map-container">
-        <div class="map-settings">
+        {{!-- <div class="map-settings">
             <i class="clear-btn fas fa-trash"></i>
           <h2 class="checkall">Select elements <i class="fas fa-check"></i> <div></div></h2>
           <div class="settings-elements">
@@ -83,8 +83,10 @@
                   <span class="checkmark"></span>
               </label>
           </div>
-        </div>
-        <div id="map" style="height: 540px;"></div>
+        </div> --}}
+        {{!-- <div id="map" style="height: 540px;"></div> --}}
+
+		<iframe src="/views/qgis/index.html" scrolling="no" frameborder="0" style="width: 100%; height: 540px;"></iframe>
       </div>
 
       <div class="export-data">
@@ -113,7 +115,7 @@
 <script src="/socket.io/socket.io.js"></script>
     <script src='script.js'></script>
 
-    <script>
+    {{!-- <script>
 		/**
  * Initialize the Google Map and add our custom layer overlay.
  * @param  {string} mapId
@@ -156,6 +158,6 @@
     </script>
 
     <!-- Load the Google Maps API, and run the initMap() callback when finished. -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUTRKVPHt8lH6A_33SsUbsOufbZtea-E&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUTRKVPHt8lH6A_33SsUbsOufbZtea-E&callback=initMap" async defer></script> --}}
 
 </html>

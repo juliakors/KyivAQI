@@ -15,6 +15,12 @@
     src: url("../fonts/Roboto-Medium.ttf");
 }
 
+.legend-color {
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+}
+
 * {
     font-family: Roboto Light;
     box-sizing: border-box;
@@ -112,7 +118,7 @@ header {
     min-height: 80px;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 5px 15px rgb(232, 235, 238);
+    /* box-shadow: 0 5px 15px rgb(232, 235, 238); */
     padding: 1.5rem;
     position: relative;
     z-index: 100;
@@ -156,7 +162,7 @@ header nav li a {
 }
 
 main {
-    padding: 2rem 1.5rem;
+    /* padding: 2rem 1.5rem; */
     padding-bottom: 0;
     background-color: #EFF4F8;
 }
@@ -307,10 +313,10 @@ main {
 
   .wave {
     position: relative;
-    left: -1.5rem;
-    width: calc(100% + 3rem);
+    /* left: -1.5rem;
+    width: calc(100% + 3rem); */
     transform: rotate(180deg);
-    top: -100px;
+    top: -90px;
     z-index: 10;
   }
 
