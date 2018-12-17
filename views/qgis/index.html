@@ -53,8 +53,53 @@
 			cursor: pointer;
 			transition: .4s ease;
 		}
+
+		.leaflet-control-layers-overlays {
+			height: 400px;
+			overflow-y: scroll;
+		}
 		.leaflet-touch .leaflet-bar:first-child {
 			margin-top: 50px;
+		}
+
+		.aqi_legend li,
+		.no2_legend li,
+		.so2_legend li,
+		.o3_legend li,
+		.pm10_legend li,
+		.pm25_legend li  {
+			list-style: none;
+		}
+		.aqi_legend i,
+		.no2_legend i,
+		.so2_legend i,
+		.o3_legend i,
+		.pm10_legend i,
+		.pm25_legend i {
+			width: 15px;
+			height: 15px;
+			display: inline-block;
+			position: relative;
+			top: 3px;
+		}
+		.aqi1 i {
+			background-color: rgba(87,187,138,0.5);
+		}
+
+		.aqi2 i {
+			background-color: rgba(176,190,110,0.5);
+		}
+
+		.aqi3 i {
+			background-color: rgba(243,197,99,0.5);
+		}
+
+		.aqi4 i {
+			background-color: rgba(233,162,104,0.5);
+		}
+
+		.aqi5 i {
+			background-color: rgba(221,119,110,0.5);
 		}
         </style>
         <title></title>
@@ -94,7 +139,10 @@
 			socket.emit('get-o3', date);
 			socket.emit('get-so2', date);
 			socket.emit('get-pm25', date);
-			socket.emit('get-pm10', date);
+			setTimeout(() => {
+				socket.emit('get-pm10', date);
+			}, 1500);
+			
 
 			var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -300,7 +348,14 @@
 				bounds_group.addLayer(layer_pm10);
 				//map.addLayer(layer_no2);
 			
-				legend = L.control.layers({'Google Street': layer_GoogleRoad_0},{'AQI': layer_aqi_1, 'NO2': layer_no2, 'SO2': layer_so2, 'O3': layer_o3, 'PM2.5': layer_pm25, 'PM10': layer_pm10}, {collapsed: false});
+				legend = L.control.layers({'Google Street': layer_GoogleRoad_0},{
+					'AQI <div class="aqi_legend"><li class="aqi1"><i></i> 1</li><li class="aqi2"><i></i> 2</li><li class="aqi3"><i></i> 3</li><li class="aqi4"><i></i> 4</li><li class="aqi5"><i></i> 5</li></div>': layer_aqi_1,
+					'NO2 <div class="no2_legend"><li class="no21"><i></i> 1</li><li class="no22"><i></i> 2</li><li class="no23"><i></i> 3</li><li class="no24"><i></i> 4</li><li class="no25"><i></i> 5</li></div>': layer_no2,
+					'SO2 <div class="so2_legend"><li class="so21"><i></i> 1</li><li class="so22"><i></i> 2</li><li class="so23"><i></i> 3</li><li class="so24"><i></i> 4</li><li class="so25"><i></i> 5</li></div>': layer_so2,
+					'O3 <div class="o3_legend"><li class="o31"><i></i> 1</li><li class="o32"><i></i> 2</li><li class="o33"><i></i> 3</li><li class="o34"><i></i> 4</li><li class="o35"><i></i> 5</li></div>': layer_o3,
+					'PM2.5 <div class="pm25_legend"><li class="pm251"><i></i> 1</li><li class="pm252"><i></i> 2</li><li class="pm253"><i></i> 3</li><li class="pm254"><i></i> 4</li><li class="pm255"><i></i> 5</li></div>': layer_pm25,
+					'PM10 <div class="pm10_legend"><li class="pm101"><i></i> 1</li><li class="pm102"><i></i> 2</li><li class="pm103"><i></i> 3</li><li class="pm104"><i></i> 4</li><li class="pm105"><i></i> 5</li></div>': layer_pm10
+				}, {collapsed: false});
 				legend.addTo(map);
 				document.getElementsByClassName('leaflet-control-layers-selector')[2].checked = false;
 				document.getElementsByClassName('leaflet-control-layers-selector')[3].checked = false;
