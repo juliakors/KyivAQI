@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data View</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  </head>
+<body>
+    
+    <header>
+      <div class="logo">
+        <a class="logo" href="/">Kyiv Thermal</a>
+      </div>
+      <nav class="secondary-menu">
+        <li class="menu-item"><a href="/">Air Quality Index</a></li>
+        <li class="menu-item"><a href="/thermal">Thermal Map</a></li>
+        <li class="login-btn" id="loginBtn">
+            <a href="login"><button>Log in</button></a>
+        </li>
+        <li class="logout-btn" id="logoutBtn">
+            <button>Log out</button>
+        </li>
+      </nav>
+    </header>
+
+    <main>
+      <div class="map-container">
+
+		<iframe src="/views/qgis-thermal/index.html" scrolling="no" frameborder="0" style="width: 100%; height: 540px;"></iframe>
+      </div>
+
+      <div class="export-data">
+        <button class="export-data-btn">Export data
+                <div class="data-types-menu">
+                        <li>.geojson</li>
+                        <li>.csv</li>
+                        <li>.png</li>
+                    </div>
+        </button>
+      </div>
+
+      <div class="wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1170 193">
+                <path d="M1175 131.2c0 0-81-89.4-224.3-103.4S713 72 665 97c-86 46-148 63-271 7C221.7 25.5 56 104.5-4 197.4 -4 58.7-3.3 0.3-3.3 0.3L1175 0V131.2z"></path>
+            </svg>
+      </div>
+
+      
+    </main>
+    <div class="plots">
+        <h1>Next - vizualisation<div></div></h1>
+        <button class="secondary-btn">Build plots</button>
+    </div>
+</body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src='script.js'></script>
+</html>

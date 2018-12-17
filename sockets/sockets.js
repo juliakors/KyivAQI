@@ -15,6 +15,36 @@ module.exports = function (io, mongo) {
 				socket.emit('aqi', data);
 			});
 		});
+
+		socket.on('get-no2', (date) => {
+			featureService.getFeaturesNO2(date, (err, data) => {
+				socket.emit('no2', data);
+			});
+		});
+
+		socket.on('get-so2', (date) => {
+			featureService.getFeaturesSO2(date, (err, data) => {
+				socket.emit('so2', data);
+			});
+		});
+
+		socket.on('get-o3', (date) => {
+			featureService.getFeaturesO3(date, (err, data) => {
+				socket.emit('o3', data);
+			});
+		});
+
+		socket.on('get-pm25', (date) => {
+			featureService.getFeaturesPM25(date, (err, data) => {
+				socket.emit('pm25', data);
+			});
+		});
+
+		socket.on('get-pm10', (date) => {
+			featureService.getFeaturesPM10(date, (err, data) => {
+				socket.emit('pm10', data);
+			});
+		});
 	
 		// Disconnect
 		socket.on('disconnect', () => {
