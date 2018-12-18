@@ -307,15 +307,15 @@
 				function setBounds() {
 				}
 
-				map.createPane('pane_pm25_1_0');
-				map.getPane('pane_pm25_1_0').style.zIndex = 401;
-				map.getPane('pane_pm25_1_0').style['mix-blend-mode'] = 'normal';
+				map.createPane('pane_pm25');
+				map.getPane('pane_pm25').style.zIndex = 401;
+				map.getPane('pane_pm25').style['mix-blend-mode'] = 'normal';
 
 				layer_pm25 = new L.geoJson(pm25, {
 					attribution: '',
 					// pane: 'pane_aqi_1',
 					onEachFeature: pop_pm25,
-					// style: style_so2_1_0_0,
+					style: style_pm25,
 				});
 				bounds_group.addLayer(layer_pm25);
 				//map.addLayer(layer_no2);
@@ -335,26 +335,26 @@
 				function setBounds() {
 				}
 
-				map.createPane('pane_pm10_1_0');
-				map.getPane('pane_pm10_1_0').style.zIndex = 401;
-				map.getPane('pane_pm10_1_0').style['mix-blend-mode'] = 'normal';
+				map.createPane('pane_pm10');
+				map.getPane('pane_pm10').style.zIndex = 401;
+				map.getPane('pane_pm10').style['mix-blend-mode'] = 'normal';
 
 				layer_pm10 = new L.geoJson(pm10, {
 					attribution: '',
 					// pane: 'pane_aqi_1',
 					onEachFeature: pop_pm10,
-					// style: style_so2_1_0_0,
+					style: style_pm10,
 				});
 				bounds_group.addLayer(layer_pm10);
 				//map.addLayer(layer_no2);
 			
 				legend = L.control.layers({'Google Street': layer_GoogleRoad_0},{
 					'AQI <div class="aqi_legend"><li class="aqi1"><i></i> 1</li><li class="aqi2"><i></i> 2</li><li class="aqi3"><i></i> 3</li><li class="aqi4"><i></i> 4</li><li class="aqi5"><i></i> 5</li></div>': layer_aqi_1,
-					'NO2 <div class="no2_legend"><li class="no21"><i></i> 1</li><li class="no22"><i></i> 2</li><li class="no23"><i></i> 3</li><li class="no24"><i></i> 4</li><li class="no25"><i></i> 5</li></div>': layer_no2,
-					'SO2 <div class="so2_legend"><li class="so21"><i></i> 1</li><li class="so22"><i></i> 2</li><li class="so23"><i></i> 3</li><li class="so24"><i></i> 4</li><li class="so25"><i></i> 5</li></div>': layer_so2,
-					'O3 <div class="o3_legend"><li class="o31"><i></i> 1</li><li class="o32"><i></i> 2</li><li class="o33"><i></i> 3</li><li class="o34"><i></i> 4</li><li class="o35"><i></i> 5</li></div>': layer_o3,
-					'PM2.5 <div class="pm25_legend"><li class="pm251"><i></i> 1</li><li class="pm252"><i></i> 2</li><li class="pm253"><i></i> 3</li><li class="pm254"><i></i> 4</li><li class="pm255"><i></i> 5</li></div>': layer_pm25,
-					'PM10 <div class="pm10_legend"><li class="pm101"><i></i> 1</li><li class="pm102"><i></i> 2</li><li class="pm103"><i></i> 3</li><li class="pm104"><i></i> 4</li><li class="pm105"><i></i> 5</li></div>': layer_pm10
+					'NO2 (µg/m2) <div class="no2_legend"><li class="no21"><i></i> 0-40</li><li class="no22"><i></i> 40-100</li><li class="no23"><i></i> 100-200</li><li class="no24"><i></i> 200-400</li><li class="no25"><i></i> 400-1000</li></div>': layer_no2,
+					'SO2 (µg/m2) <div class="so2_legend"><li class="so21"><i></i> 1</li><li class="so22"><i></i> 2</li><li class="so23"><i></i> 3</li><li class="so24"><i></i> 4</li><li class="so25"><i></i> 5</li></div>': layer_so2,
+					'O3 (µg/m2) <div class="o3_legend"><li class="o31"><i></i> 1</li><li class="o32"><i></i> 2</li><li class="o33"><i></i> 3</li><li class="o34"><i></i> 4</li><li class="o35"><i></i> 5</li></div>': layer_o3,
+					'PM2.5 (µg/m3) <div class="pm25_legend"><li class="pm251"><i></i> 0-10</li><li class="pm252"><i></i> 10-20</li><li class="pm253"><i></i> 20-25</li><li class="pm254"><i></i> 25-50</li><li class="pm255"><i></i> >50</li></div>': layer_pm25,
+					'PM10 (µg/m3) <div class="pm10_legend"><li class="pm101"><i></i> 0-20</li><li class="pm102"><i></i> 20-35</li><li class="pm103"><i></i> 35-50</li><li class="pm104"><i></i> 50-100</li><li class="pm105"><i></i> >100</li></div>': layer_pm10
 				}, {collapsed: false});
 				legend.addTo(map);
 				document.getElementsByClassName('leaflet-control-layers-selector')[2].checked = false;
@@ -365,94 +365,49 @@
 			});
 
 			function style_o3_5outPolygon_0_0(feature) {
-				if (feature.properties['o3'] >= 0 && feature.properties['o3'] <= 5.100000 ) {
+				if (feature.properties['o3'] >= 0 && feature.properties['o3'] <= 8 ) {
 					return {
 					pane: 'pane_o3_5outPolygon_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(237,248,251,0.5)',
+					fillColor: '#FAC3C9',
 				}
 				}
-				if (feature.properties['o3'] >= 5.100000 && feature.properties['o3'] <= 5.200000 ) {
+				if (feature.properties['o3'] > 8 && feature.properties['o3'] <= 12 ) {
 					return {
 					pane: 'pane_o3_5outPolygon_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(212,229,241,0.5)',
+					fillColor: '#F9AFB8',
 				}
 				}
-				if (feature.properties['o3'] >= 5.200000 && feature.properties['o3'] <= 5.300000 ) {
+				if (feature.properties['o3'] > 12 && feature.properties['o3'] <= 18 ) {
 					return {
 					pane: 'pane_o3_5outPolygon_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(186,210,230,0.5)',
+					fillColor: '#F68794',
 				}
 				}
-				if (feature.properties['o3'] >= 5.300000 && feature.properties['o3'] <= 5.400000 ) {
+				if (feature.properties['o3'] > 18 && feature.properties['o3'] <= 24 ) {
 					return {
 					pane: 'pane_o3_5outPolygon_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(166,187,218,0.5)',
+					fillColor: '#F35F71',
 				}
 				}
-				if (feature.properties['o3'] >= 5.400000 && feature.properties['o3'] <= 5.500000 ) {
+				if (feature.properties['o3'] > 24 && feature.properties['o3']) {
 					return {
 					pane: 'pane_o3_5outPolygon_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(149,162,205,0.5)',
-				}
-				}
-				if (feature.properties['o3'] >= 5.500000 && feature.properties['o3'] <= 5.600000 ) {
-					return {
-					pane: 'pane_o3_5outPolygon_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(139,136,191,0.5)',
-				}
-				}
-				if (feature.properties['o3'] >= 5.600000 && feature.properties['o3'] <= 5.700000 ) {
-					return {
-					pane: 'pane_o3_5outPolygon_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(137,107,178,0.5)',
-				}
-				}
-				if (feature.properties['o3'] >= 5.700000 && feature.properties['o3'] <= 5.800000 ) {
-					return {
-					pane: 'pane_o3_5outPolygon_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(135,78,162,0.5)',
-				}
-				}
-				if (feature.properties['o3'] >= 5.800000 && feature.properties['o3'] <= 5.900000 ) {
-					return {
-					pane: 'pane_o3_5outPolygon_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(132,46,143,0.5)',
-				}
-				}
-				if (feature.properties['o3'] >= 5.900000) {
-					return {
-					pane: 'pane_o3_5outPolygon_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(129,15,124,0.5)',
+					fillColor: '#EF233C',
 				}
 				}
 			}
@@ -551,76 +506,49 @@
 			}
 
 			function style_no2_1_0_0(feature) {
-				if (feature.properties['no2'] >= 0 && feature.properties['no2'] <= 1.500000 ) {
+				if (feature.properties['no2'] >= 0 && feature.properties['no2'] <= 4 ) {
 					return {
 					pane: 'pane_no2_1_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(255,245,240,0.5)',
+					fillColor: 'rgba(255,245,240,0.7)',
 				}
 				}
-				if (feature.properties['no2'] >= 1.500000 && feature.properties['no2'] <= 2.000000 ) {
+				if (feature.properties['no2'] > 4 && feature.properties['no2'] <= 10 ) {
 					return {
 					pane: 'pane_no2_1_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(254,221,205,0.5)',
+					fillColor: 'rgba(254,211,205,0.7)',
 				}
 				}
-				if (feature.properties['no2'] >= 2.000000 && feature.properties['no2'] <= 2.500000 ) {
+				if (feature.properties['no2'] > 10 && feature.properties['no2'] <= 20 ) {
 					return {
 					pane: 'pane_no2_1_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(252,179,152,0.5)',
+					fillColor: 'rgba(187,87,62,0.7)',
 				}
 				}
-				if (feature.properties['no2'] >= 2.500000 && feature.properties['no2'] <= 3.000000 ) {
+				if (feature.properties['no2'] > 20 && feature.properties['no2'] <= 40 ) {
 					return {
 					pane: 'pane_no2_1_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(252,134,102,0.5)',
+					fillColor: 'rgba(222,41,36,0.7)',
 				}
 				}
-				if (feature.properties['no2'] >= 3.000000 && feature.properties['no2'] <= 3.500000 ) {
+				if (feature.properties['no2'] > 40) {
 					return {
 					pane: 'pane_no2_1_0',
 					stroke: false, 
 					fill: true,
 					fillOpacity: 1,
-					fillColor: 'rgba(247,87,62,0.5)',
-				}
-				}
-				if (feature.properties['no2'] >= 3.500000 && feature.properties['no2'] <= 4.000000 ) {
-					return {
-					pane: 'pane_no2_1_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(222,41,36,0.5)',
-				}
-				}
-				if (feature.properties['no2'] >= 4.000000 && feature.properties['no2'] <= 4.500000 ) {
-					return {
-					pane: 'pane_no2_1_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(179,18,23,0.5)',
-				}
-				}
-				if (feature.properties['no2'] >= 4.500000) {
-					return {
-					pane: 'pane_no2_1_0',
-					stroke: false, 
-					fill: true,
-					fillOpacity: 1,
-					fillColor: 'rgba(103,0,13,0.5)',
+					fillColor: 'rgba(103,0,13,0.7)',
 				}
 				}
 			}
@@ -675,6 +603,102 @@
 				}
 		}			
 
+			function style_pm25(feature) {
+				if (feature.properties['pm25'] >= 0 && feature.properties['pm25'] <= 10 ) {
+					return {
+					pane: 'pane_pm25',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(87,187,138,0.5)',
+				}
+				}
+				if (feature.properties['pm25'] > 10 && feature.properties['pm25'] <= 20 ) {
+					return {
+					pane: 'pane_pm25',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(176,190,110,0.5)',
+				}
+				}
+				if (feature.properties['pm25'] > 20 && feature.properties['pm25'] <= 25 ) {
+					return {
+					pane: 'pane_pm25',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(243,197,99,0.5)',
+				}
+				}
+				if (feature.properties['pm25'] > 25 && feature.properties['pm25'] <= 50 ) {
+					return {
+					pane: 'pane_pm25',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(233,162,104,0.5)',
+				}
+				}
+				if (feature.properties['pm25'] > 50) {
+					return {
+					pane: 'pane_pm25',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(221,119,110,0.5)',
+				}
+				}
+			}
+
+			function style_pm10(feature) {
+				if (feature.properties['pm10'] >= 0 && feature.properties['pm10'] <= 20 ) {
+					return {
+					pane: 'pane_pm10',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(87,187,138,0.5)',
+				}
+				}
+				if (feature.properties['pm10'] > 20 && feature.properties['pm10'] <= 35 ) {
+					return {
+					pane: 'pane_pm10',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(176,190,110,0.5)',
+				}
+				}
+				if (feature.properties['pm10'] > 35 && feature.properties['pm10'] <= 50 ) {
+					return {
+					pane: 'pane_pm10',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(243,197,99,0.5)',
+				}
+				}
+				if (feature.properties['pm10'] > 50 && feature.properties['pm10'] <= 100 ) {
+					return {
+					pane: 'pane_pm10',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(233,162,104,0.5)',
+				}
+				}
+				if (feature.properties['pm10'] > 100) {
+					return {
+					pane: 'pane_pm10',
+					stroke: false, 
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(221,119,110,0.5)',
+				}
+				}
+			}
+
 			function getColor(d) {
 				return d == 1 ? 'rgba(87,187,138,0.5)' :
 					d == 2  ? 'rgba(176,190,110,0.5)' :
@@ -686,7 +710,7 @@
 		function pop_aqi_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">pm_sum</th><td colspan="2">' + (feature.properties['pm_sum'] !== null ? Autolinker.link(String(feature.properties['pm_sum'])) : '') + '</td>\
+							<th scope="row">pm_sum (µg/m3)</th><td colspan="2">' + (feature.properties['pm_sum'] !== null ? Autolinker.link(String(feature.properties['pm_sum'])) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">aqi</th>\
@@ -699,7 +723,7 @@
 		function pop_no2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">NO2</th><td colspan="2">' + (feature.properties['no2'] !== null ? Autolinker.link(String(feature.properties['no2'])) : '') + '</td>\
+							<th scope="row">NO2 (µg/m2)</th><td colspan="2">' + (feature.properties['no2'] !== null ? Autolinker.link(String(feature.properties['no2']*10)) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -708,7 +732,7 @@
 		function pop_so2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">SO2</th><td colspan="2">' + (feature.properties['so2'] !== null ? Autolinker.link(String(feature.properties['so2'])) : '') + '</td>\
+							<th scope="row">SO2 (µg/m2)</th><td colspan="2">' + (feature.properties['so2'] !== null ? Autolinker.link(String(feature.properties['so2'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -717,7 +741,7 @@
 		function pop_o3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">O3</th><td colspan="2">' + (feature.properties['o3'] !== null ? Autolinker.link(String(feature.properties['o3'])) : '') + '</td>\
+							<th scope="row">O3 (µg/m2)</th><td colspan="2">' + (feature.properties['o3'] !== null ? Autolinker.link(String(feature.properties['o3'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -726,7 +750,7 @@
 		function pop_pm10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">PM10</th><td colspan="2">' + (feature.properties['pm10'] !== null ? Autolinker.link(String(feature.properties['pm10'])) : '') + '</td>\
+							<th scope="row">PM10 (µg/m3)</th><td colspan="2">' + (feature.properties['pm10'] !== null ? Autolinker.link(String(feature.properties['pm10'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -735,7 +759,7 @@
 		function pop_pm25(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-							<th scope="row">PM2.5</th><td colspan="2">' + (feature.properties['pm25'] !== null ? Autolinker.link(String(feature.properties['pm25'])) : '') + '</td>\
+							<th scope="row">PM2.5 (µg/m3)</th><td colspan="2">' + (feature.properties['pm25'] !== null ? Autolinker.link(String(feature.properties['pm25'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
