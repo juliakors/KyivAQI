@@ -16,11 +16,11 @@
     
     <header>
       <div class="logo">
-        <a class="logo" href="/">Kiev Air</a>
+        <a class="logo" href="/views/landing/temp_grid.html">Kyiv Smart City</a>
       </div>
       <nav class="secondary-menu">
         <li class="menu-item"><a href="/">Air Quality Index</a></li>
-        <li class="menu-item"><a href="/thermal">Thermal Map</a></li>
+        <li class="menu-item"><a href="https://ffffffffffffffffff34.wixsite.com/kyivsmartcity">About</a></li>
         <li class="login-btn" id="loginBtn">
             <a href="login"><button>Log in</button></a>
         </li>
@@ -115,11 +115,30 @@
     </main>
     <div class="plots">
         <h1>Next - vizualisation<div></div></h1>
-        <button class="secondary-btn">Build plots</button>
+        <button id="buldPlot" class="secondary-btn">Build plots</button>
+		<div class="chartplots" id="chartplots">
+			<img class="plot" src="/views/img/pm25.png" alt="">
+			<h1>Linear regression<div></div></h1>
+			<img class="plot" src="/views/img/pm25-regression.jpg" alt="">
+			<p class="h-center">Pearson corellation = 0.9</p>
+			<img class="plot" src="/views/img/pm10.png" alt="">
+			<h1>Linear regression<div></div></h1>
+			<img class="plot" src="/views/img/pm10-regression.jpg" alt="">
+			<p class="h-center">Pearson corellation = 0.9</p>
+		</div>
     </div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
     <script src='script.js'></script>
+	<script>
+		const buildPlot = document.getElementById('buldPlot');
+		buildPlot.addEventListener('click', () => {
+			console.log(localStorage.getItem('isAuth'));
+			if(localStorage.getItem('isAuth') == 'true') {
+				document.getElementById('chartplots').style.display = 'block';
+			}
+		});
+	</script>
 
     {{!-- <script>
 		/**

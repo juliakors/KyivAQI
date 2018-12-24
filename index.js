@@ -54,6 +54,7 @@ app.get('/qgis/index.html', (req, res) => {
 app.engine('.hbs', handlebars({extname: '.hbs', cache: false}))
   .set('view engine', '.hbs');
 app.use('/src/public', express.static('src/public'));
+app.use('/views', express.static(__dirname + '/views'));
 app.use('/views/qgis', express.static(__dirname + '/views/qgis'));
 app.use('/views/qgis-thermal', express.static(__dirname + '/views/qgis-thermal'));
 app.use('/views/dist', express.static(__dirname + '/views/dist'));

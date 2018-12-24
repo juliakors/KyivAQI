@@ -10,10 +10,10 @@
 <body>
     <div class="registration-form">
         <h2>Registration <div></div></h2>
-        <input type="text" name="name" id="userName">
-        <input type="email" name="email" id="userEmail">
-        <input type="password" name="password" id="userPassword">
-        <input type="password">
+        <input type="text" name="name" id="userName" placeholder="Username">
+        <input type="email" name="email" id="userEmail" placeholder="Email">
+        <input type="password" name="password" id="userPassword" placeholder="Password">
+        <input type="password" id="confirmPasword" placeholder="Confirm password">
         <div class="flexbox">
             <a href="login">Log in</a>
             <button id="userRegister">Register account</button>
@@ -35,8 +35,51 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const socket = io.connect();
+	const socket = io.connect();
+	const psd1 = document.getElementById('userPassword');
+	const psd2 = document.getElementById('confirmPasword');
+	const usrName = document.getElementById('userName');
+	const usrEmail = document.getElementById('userEmail');
     document.getElementById('userRegister').addEventListener('click', () => {
+		if (usrName.value.length == 0) {
+			usrName.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		if (usrEmail.value.length == 0) {
+			usrEmail.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!re.test(usrEmail.value)) {
+			usrEmail.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		else {
+			usrEmail.style.borderBottom = '1px solid #ccc';
+		}
+		if (psd1.value.length == 0) {
+			psd1.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		else {
+			usrEmail.style.borderBottom = '1px solid #ccc';
+		}
+		if (psd2.value.length == 0) {
+			psd2.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		else {
+			psd2.style.borderBottom = '1px solid #ccc';
+		}
+		if (psd1.value != psd2.value) {
+			psd1.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			psd2.style.borderBottom = '1px solid rgb(235, 78, 143)';
+			return;
+		}
+		else {
+			psd1.style.borderBottom = '1px solid #ccc';
+			psd2.style.borderBottom = '1px solid #ccc';
+		}
         let user = {
             name: document.getElementById('userName').value,
             email: document.getElementById('userEmail').value,
@@ -45,6 +88,8 @@
         socket.emit('register-user', user, () => {
             window.location = '/login';
         });
-    });
+	});
+	
+
 </script>
 </html>

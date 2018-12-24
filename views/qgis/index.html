@@ -56,7 +56,7 @@
 
 		.leaflet-control-layers-overlays {
 			height: 400px;
-			overflow-y: scroll;
+			/* overflow-y: scroll; */
 		}
 		.leaflet-touch .leaflet-bar:first-child {
 			margin-top: 50px;
@@ -350,11 +350,11 @@
 			
 				legend = L.control.layers({'Google Street': layer_GoogleRoad_0},{
 					'AQI <div class="aqi_legend"><li class="aqi1"><i></i> 1</li><li class="aqi2"><i></i> 2</li><li class="aqi3"><i></i> 3</li><li class="aqi4"><i></i> 4</li><li class="aqi5"><i></i> 5</li></div>': layer_aqi_1,
-					'NO2 (µg/m2) <div class="no2_legend"><li class="no21"><i></i> 0-40</li><li class="no22"><i></i> 40-100</li><li class="no23"><i></i> 100-200</li><li class="no24"><i></i> 200-400</li><li class="no25"><i></i> 400-1000</li></div>': layer_no2,
-					'SO2 (µg/m2) <div class="so2_legend"><li class="so21"><i></i> 1</li><li class="so22"><i></i> 2</li><li class="so23"><i></i> 3</li><li class="so24"><i></i> 4</li><li class="so25"><i></i> 5</li></div>': layer_so2,
-					'O3 (µg/m2) <div class="o3_legend"><li class="o31"><i></i> 1</li><li class="o32"><i></i> 2</li><li class="o33"><i></i> 3</li><li class="o34"><i></i> 4</li><li class="o35"><i></i> 5</li></div>': layer_o3,
-					'PM2.5 (µg/m3) <div class="pm25_legend"><li class="pm251"><i></i> 0-10</li><li class="pm252"><i></i> 10-20</li><li class="pm253"><i></i> 20-25</li><li class="pm254"><i></i> 25-50</li><li class="pm255"><i></i> >50</li></div>': layer_pm25,
-					'PM10 (µg/m3) <div class="pm10_legend"><li class="pm101"><i></i> 0-20</li><li class="pm102"><i></i> 20-35</li><li class="pm103"><i></i> 35-50</li><li class="pm104"><i></i> 50-100</li><li class="pm105"><i></i> >100</li></div>': layer_pm10
+					'NO2 (µg/m2)': layer_no2,
+					'SO2 (µg/m2)': layer_so2,
+					'O3 (µg/m2)': layer_o3,
+					'PM2.5 (µg/m3)': layer_pm25,
+					'PM10 (µg/m3)': layer_pm10
 				}, {collapsed: false});
 				legend.addTo(map);
 				document.getElementsByClassName('leaflet-control-layers-selector')[2].checked = false;

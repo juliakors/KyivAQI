@@ -61,9 +61,12 @@ if (window.location.href=='http://localhost:3000/login') {
         }).then(res => {
             return res.text()
         })
-        .then(()=>{
-            localStorage.setItem('isAuth', true);
-            window.location = '/';
+        .then((res)=>{
+			console.log(res);
+			if (res != 'Unauthorized') {
+				localStorage.setItem('isAuth', true);
+            	window.location = '/';
+			}
         })
     });
 }
