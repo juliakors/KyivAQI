@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack src/scripts/index.js dist/bundle.js",
     "pydata": "python3 '/home/korsunskaya/Desktop/kiev-air-js/python/index.py'",
-    "start": "concurrently \"python3 '/home/korsunskaya/Desktop/kiev-air-js/python/index.py'\" \"npm run build\" \"node index.js\""
+    "start": "npm run build; node index.js"
   },
   "repository": {
     "type": "git",
