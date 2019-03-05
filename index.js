@@ -50,13 +50,35 @@ app.engine('.hbs', handlebars({extname: '.hbs', cache: false}))
 app.use('/src/public', express.static('src/public'))
 
 app.get('/', (request, response) => {
-	console.log(ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_123032_20140515'));
-	const image = new ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_123032_20140515');
-	var map = image.getMap({min: 0, max: 1000});
-	
-    response.render('index', {mapid: map.mapid, token: map.token});
+  const image = new ee.Image('COPERNICUS/S5P/NRTI/L3_NO2/20180710T105744_20180710T130028').select('NO2_column_number_density');
+  var layerPalette = [
+    '57bb8a', 
+    '63b682',
+    '73b87e',
+    '84bb7b',
+    '94bd77',
+    'a4c073',
+    'b0be6e',
+    'c4c56d',
+    'd4c86a',
+    'e2c965',
+    'f5ce62',
+    'f3c563',
+    'e9b861',
+    'e6ad61',
+    'ecac67',
+    'e9a268',
+    'e79a69',
+    'e5926b',
+    'e2886c',
+    'e0816d',
+    'dd776e'
+  ];
 
+  var map = image.getMap({min: 0.00008, max: 0.0001, palette: layerPalette});
+    response.render('index', {mapid: map.mapid, token: map.token});
   });
+  
 
 // app.get('/globals.js', (req, res) => {
 //   res.sendFile(path.resolve(__dirname + '/src/scripts/globals.js'));
