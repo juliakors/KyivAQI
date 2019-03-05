@@ -133,7 +133,7 @@ app.use(function(req, res, next) {
 //   console.error('Authentication error: ' + e);
 // });
 const PORT = process.env.PORT || 3000
-express().listen(PORT, () => console.log(`Listening on ${ PORT }`))
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 // Routers
 var routes = require('./routers/routers')(app, io);
